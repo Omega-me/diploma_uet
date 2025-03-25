@@ -19,9 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html suppressHydrationWarning lang="en">
         <body suppressHydrationWarning className={inter.className}>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange>
             {children}
             <Toaster />
           </ThemeProvider>
