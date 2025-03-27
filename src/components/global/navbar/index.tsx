@@ -5,6 +5,10 @@ import React from 'react';
 import AppSheet from '../app-sheet';
 import { Menu } from 'lucide-react';
 import SidebarContent from '../sidebar/sidebar-content';
+import CreateAutomation from '../create-automation';
+import Search from '../search';
+import Notifications from '../notifications';
+import MainBreadCrumb from '../main-bread-crumb';
 
 interface Props {
   slug: string;
@@ -15,13 +19,22 @@ const Navbar = (props: Props) => {
   return (
     currentPage && (
       <div className="flex flex-col">
-        <div className="flex gap-c-3 lg:gap-x-5 justify-end">
-          <span className="lg:hidden flex items-center flex-1 gap-x-2">
+        <div className="flex gap-x-3 lg:gap-x-5 justify-end">
+          <span className="lg:hidden flex items-center flex-0 gap-x-2">
             <AppSheet trigger={<Menu />} className="lg:hidden">
               <SidebarContent slug={props.slug} />
             </AppSheet>
           </span>
+          <div className="flex justify-end gap-x-3 flex-1">
+            <Search />
+            <CreateAutomation />
+            <Notifications />
+          </div>
         </div>
+        <MainBreadCrumb
+          page={page === props.slug ? 'Home' : page}
+          slug={props.slug}
+        />
       </div>
     )
   );

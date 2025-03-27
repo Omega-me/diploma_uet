@@ -19,7 +19,7 @@ const SidebarContent = (props: Props) => {
     <>
       {/*custom class to add to the below div backdrop--blure__safari */}
       <div className="flex flex-col gap-y-5 w-full h-full p-3 bg-[#0e0e0e] bg-opacity-90 bg-clip-padding backdrop--blure__safari backdrop-filter backdrop-blur-3xl">
-        <div className="flex gap-x-2 items-center p-5 justify-center">
+        <div className="flex gap-x-2 items-center justify-center">
           <LogoSmall />
         </div>
 
