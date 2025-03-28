@@ -12,9 +12,9 @@ type PageIcon = {
 };
 
 export const PAGE_ICON: PageIcon = {
-  AUTOMATIONS: <Workflow />,
-  CONTACTS: <ContactRound />,
-  INTEGARTIONS: <Blocks />,
-  SETTINGS: <Bolt />,
-  HOME: <House />,
+  AUTOMATIONS: <Workflow color="#3352cc" size={30} />,
+  CONTACTS: <ContactRound color="#3352cc" size={30} />,
+  INTEGRATIONS: <Blocks color="#3352cc" size={30} />,
+  SETTINGS: <Bolt color="#3352cc" size={30} />,
+  HOME: <House color="#3352cc" size={30} />,
 };
