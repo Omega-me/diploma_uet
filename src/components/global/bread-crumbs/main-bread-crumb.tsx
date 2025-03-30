@@ -3,7 +3,7 @@ import React from 'react';
 
 interface Props {
   page: string;
-  slug: string;
+  userName: string;
 }
 
 const MainBreadCrumb = (props: Props) => {
@@ -12,8 +12,8 @@ const MainBreadCrumb = (props: Props) => {
       {props.page === 'Home' && (
         <div className="flex justify-center w-full">
           <div className="radial--gradient w-4/12 py-5 lg:py-10 flex flex-col items-center">
-            <p className="text-muted-foreground text-lg">Welcome back</p>
-            <h2 className="capitalize text-4xl font-medium">{props.slug}!</h2>
+            <p className="text-muted-foreground text-lg whitespace-nowrap">Welcome back</p>
+            <h2 className="capitalize text-2xl lg:text-4xl whitespace-nowrap font-medium">{props.userName}!</h2>
           </div>
         </div>
       )}

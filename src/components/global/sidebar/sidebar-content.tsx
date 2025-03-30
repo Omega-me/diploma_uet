@@ -7,12 +7,8 @@ import ClerkAuthState from '../clerk-auth-state';
 import { BadgeHelp } from 'lucide-react';
 import SubscriptionPlan from '../subscription-plan';
 import UpgardeCard from './upgarde-card';
-import usePaths from '@/hooks/use-navs';
 
-interface Props {
-  slug: string;
-}
-const SidebarContent = (props: Props) => {
+const SidebarContent = () => {
   return (
     <>
       <div className="flex flex-col gap-y-5 w-full h-full p-3 bg-[#0e0e0e] bg-opacity-90 bg-clip-padding backdrop-filter backdrop-blur-3xl">
@@ -21,7 +17,7 @@ const SidebarContent = (props: Props) => {
         </div>
 
         <div className="flex flex-col py-3">
-          <Items slug={props.slug} />
+          <Items />
         </div>
         <div className="px-16 flex justify-center">
           <Separator orientation="horizontal" className="bg-[#333336] w-40" />

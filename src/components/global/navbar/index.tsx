@@ -1,42 +1,43 @@
 'use client';
+
 import { PAGE_BREAD_CRUMBS } from '@/constants/pages';
 import usePaths from '@/hooks/use-navs';
 import React from 'react';
 import AppSheet from '../app-sheet';
 import { Menu } from 'lucide-react';
 import SidebarContent from '../sidebar/sidebar-content';
-import CreateAutomation from '../create-automation';
+import CreateAutomation from '../automation/create-automation';
 import Search from '../search';
 import Notifications from '../notifications';
-import MainBreadCrumb from '../main-bread-crumb';
+import MainBreadCrumb from '../bread-crumbs/main-bread-crumb';
 
 interface Props {
-  slug: string;
+  userName: string;
 }
-const Navbar = (props: Props) => {
+
+const Navbar = ({ userName }: Props) => {
   const { page } = usePaths();
-  const currentPage = PAGE_BREAD_CRUMBS.includes(page) || page == props.slug;
+
+  const isCurrentPage = PAGE_BREAD_CRUMBS.includes(page) || page === 'home';
+
   return (
-    currentPage && (
-      <div className="flex flex-col">
-        <div className="flex gap-x-3 lg:gap-x-5 justify-end">
-          <span className="lg:hidden flex items-center flex-0 gap-x-2">
-            <AppSheet trigger={<Menu />} className="lg:hidden">
-              <SidebarContent slug={props.slug} />
-            </AppSheet>
-          </span>
+    <div className="flex flex-col">
+      <div className="flex gap-x-3 lg:gap-x-5 justify-start">
+        <span className="lg:hidden flex items-center flex-0 gap-x-2">
+          <AppSheet trigger={<Menu />} className="lg:hidden">
+            <SidebarContent />
+          </AppSheet>
+        </span>
+        {isCurrentPage ? (
           <div className="flex justify-end gap-x-3 flex-1">
             <Search />
-            <CreateAutomation />
+            <CreateAutomation hideLabelOnSmallScreen />
             <Notifications />
           </div>
-        </div>
-        <MainBreadCrumb
-          page={page === props.slug ? 'Home' : page}
-          slug={props.slug}
-        />
+        ) : null}
       </div>
-    )
+      {isCurrentPage && <MainBreadCrumb userName={userName} page={page === 'home' ? 'Home' : page} />}
+    </div>
   );
 };
 

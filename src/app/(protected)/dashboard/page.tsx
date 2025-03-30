@@ -1,15 +1,7 @@
-import { SignInButton, UserButton } from '@clerk/nextjs';
-import React from 'react';
+import { onBoardUser } from '@/actions/user';
 
 const Page = async () => {
-  // TODO: server action onBoard user
-  return (
-    <div>
-      <SignInButton>
-        <UserButton />
-      </SignInButton>
-    </div>
-  );
+  return <div>Page</div>;
 };
 
 export default Page;
