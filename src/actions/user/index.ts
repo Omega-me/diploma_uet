@@ -6,14 +6,14 @@ import { createUser, findUser } from './queries';
 import { refreshToken } from '@/lib/fetch';
 import { updateIntegration } from '../integrations/query';
 
-export const onCurrenctUser = async () => {
+export const onCurrentUser = async () => {
   const user = await currentUser();
   if (!user) return redirect('sign-in');
   return user;
 };
 
 export const onBoardUser = async () => {
-  const user = await onCurrenctUser();
+  const user = await onCurrentUser();
   try {
     const found = await findUser(user.id);
     if (found) {
@@ -58,5 +58,17 @@ export const onBoardUser = async () => {
     return {
       status: 500,
     };
+  }
+};
+
+export const onUserInfo = async () => {
+  const user = await onCurrentUser();
+  try {
+    const profile = await findUser(user.id);
+
+    if (!user) return { status: 404 };
+    return { status: 200, data: profile };
+  } catch (error) {
+    return { status: 500 };
   }
 };

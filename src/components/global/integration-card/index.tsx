@@ -2,14 +2,12 @@ import { Button } from '@/components/ui/button';
 import { IntegrationCardProps } from '@/constants/integrations';
 import React from 'react';
 
-interface Props extends IntegrationCardProps {
-  key: string;
-}
+interface Props extends IntegrationCardProps {}
 
 const IntegrationCard = (props: Props) => {
   // TODO: wire up fetching data and get the integrations from the db
   return (
-    <div className="border-2 border-[#3352cc] rounded-2xl gap-x-5 p-5 flex items-center" key={props.key}>
+    <div className="border-2 border-[#3352cc] rounded-2xl gap-x-5 p-5 flex items-center">
       {props.icon}
       <div className="flex flex-col flex-1">
         <h3 className="text-xl">{props.title}</h3>

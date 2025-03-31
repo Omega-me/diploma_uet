@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/providers/theme-provider';
 import { cn } from '@/lib/utils';
 import { shadesOfPurple } from '@clerk/themes';
 import { Toaster } from 'sonner';
+import ReactQueryProvider from '@/providers/react-query-provider';
 import './globals.css';
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'] });
@@ -27,10 +28,12 @@ export default function RootLayout({
     >
       <html suppressHydrationWarning lang="en" className="dark">
         <body suppressHydrationWarning className={cn(jakarta.className, 'dark')}>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-            {children}
-            <Toaster />
-          </ThemeProvider>
+          <ReactQueryProvider>
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </ReactQueryProvider>
         </body>
       </html>
     </ClerkProvider>

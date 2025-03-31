@@ -1,6 +1,6 @@
 import AutomationList from '@/components/global/automation/automation-list';
 import CreateAutomation from '@/components/global/automation/create-automation';
-import { Check, CircleCheck } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
 import React from 'react';
 
 const Page = () => {
