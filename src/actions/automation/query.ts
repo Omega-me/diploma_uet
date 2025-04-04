@@ -33,3 +33,41 @@ export const createAutomation = async (clerkId: string) => {
     },
   });
 };
+
+export const findAutomation = async (id: string) => {
+  return await client.automations.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      keywords: true,
+      triggers: true,
+      listener: true,
+      posts: true,
+      User: {
+        select: {
+          subscription: true,
+          integrations: true,
+        },
+      },
+    },
+  });
+};
+
+export const onUpdateAutomation = async (
+  id: string,
+  data: {
+    name?: string;
+    active?: boolean;
+  },
+) => {
+  return await client.automations.update({
+    where: {
+      id,
+    },
+    data: {
+      name: data.name,
+      active: data.active,
+    },
+  });
+};

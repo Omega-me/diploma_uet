@@ -36,7 +36,12 @@ const Navbar = ({ userName }: Props) => {
           </div>
         ) : null}
       </div>
-      {isCurrentPage && <MainBreadCrumb userName={userName} page={page === 'home' ? 'Home' : page} />}
+      {isCurrentPage && (
+        <MainBreadCrumb
+          userName={userName}
+          page={page === 'home' ? 'Home' : page}
+        />
+      )}
     </div>
   );
 };

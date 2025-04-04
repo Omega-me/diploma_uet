@@ -16,7 +16,7 @@ const LogoSmall = () => {
         fill="#AABBFF"
         textAnchor="middle"
         alignmentBaseline="middle">
-        Slide
+        Logo
       </text>
     </svg>
   );

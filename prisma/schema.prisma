@@ -13,123 +13,121 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id String @id @default(uuid()) @db.Uuid
-  clerkId String @unique
-  email String @unique
+  id        String   @id @default(uuid()) @db.Uuid
+  clerkId   String   @unique
+  email     String   @unique
   firstname String?
-  lastname String?
+  lastname  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
   subscription Subscription?
-  automations Automations[]
+  automations  Automations[]
   integrations Integrations[]
 }
 
 model Subscription {
-  id String @id @default(uuid()) @db.Uuid
-  plan SubscriptionPlan @default(FREE) 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  customerId String? @unique
+  id         String           @id @default(uuid()) @db.Uuid
+  plan       SubscriptionPlan @default(FREE)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @default(now())
+  customerId String?          @unique
 
-  User User? @relation(fields: [userId], references: [id],onDelete: Cascade)
+  User   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @unique @db.Uuid
 }
 
-model Integrations{
-  id String @id @default(uuid()) @db.Uuid
-  name IntegrationType @default(INSTAGRAM)
-  token String @unique
-  integrationId String? @unique
-  expiresAt DateTime?  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+model Integrations {
+  id            String          @id @default(uuid()) @db.Uuid
+  name          IntegrationType @default(INSTAGRAM)
+  token         String          @unique
+  integrationId String?         @unique
+  expiresAt     DateTime?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
 
-  User User? @relation(fields: [userId], references: [id],onDelete: Cascade)
+  User   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @unique @db.Uuid
 }
 
-model Automations{
-  id String @id @default(uuid()) @db.Uuid
-  name String @default("Untitled")
-  active Boolean @default(false)
+model Automations {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @default("Untitled")
+  active    Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  User User? @relation(fields: [userId], references: [id],onDelete: Cascade)
-  userId String @unique @db.Uuid
+  User   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.Uuid
 
   triggers Trigger[]
   listener Listener?
-  posts Post[]
+  posts    Post[]
   keywords Keyword[]
-  dms Dms[]
+  dms      Dms[]
 }
 
 model Trigger {
-  id String @id @default(uuid()) @db.Uuid
-  type String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-    
-  Automation Automations? @relation(fields: [automationId], references: [id],onDelete: Cascade)
-  automationId String? @db.Uuid
-}
-
-model Keyword{
-  id String @id @default(uuid()) @db.Uuid
-  word String
+  id        String   @id @default(uuid()) @db.Uuid
+  type      String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  Automation Automations? @relation(fields: [automationId], references: [id],onDelete: Cascade)
-  automationId String? @db.Uuid
-
-  @@unique([automationId,word])
+  Automation   Automations? @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  automationId String?      @db.Uuid
 }
 
-model Listener{
-  id String @id @default(uuid()) @db.Uuid
-  listener ListenerType @default(MESSAGE)
-  prompt String 
+model Keyword {
+  id        String   @id @default(uuid()) @db.Uuid
+  word      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  Automation   Automations? @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  automationId String?      @db.Uuid
+
+  @@unique([automationId, word])
+}
+
+model Listener {
+  id           String       @id @default(uuid()) @db.Uuid
+  listener     ListenerType @default(MESSAGE)
+  prompt       String
   commentReply String?
-  dmCount Int
+  dmCount      Int
   commentCount Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @default(now())
 
-  Automation Automations? @relation(fields: [automationId], references: [id],onDelete: Cascade)
-  automationId String? @db.Uuid @unique
+  Automation   Automations? @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  automationId String?      @unique @db.Uuid
 }
 
 model Dms {
-  id String @id @default(uuid()) @db.Uuid
-  senderId String?
-  reciever String?
-  message String?
+  id        String   @id @default(uuid()) @db.Uuid
+  senderId  String?
+  reciever  String?
+  message   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  Automation Automations? @relation(fields: [automationId], references: [id],onDelete: Cascade)
-  automationId String? @db.Uuid
+  Automation   Automations? @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  automationId String?      @db.Uuid
 }
 
 model Post {
-  id String @id @default(uuid()) @db.Uuid
-  postid String
-  caption String?
-  media String
-  mediaType MediaType @default(IMAGE) 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id        String    @id @default(uuid()) @db.Uuid
+  postid    String
+  caption   String?
+  media     String
+  mediaType MediaType @default(IMAGE)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
 
-  Automation Automations? @relation(fields: [automationId], references: [id],onDelete: Cascade)
-  automationId String? @db.Uuid
+  Automation   Automations? @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  automationId String?      @db.Uuid
 }
-
 
 enum SubscriptionPlan {
   PRO

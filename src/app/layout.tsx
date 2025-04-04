@@ -24,14 +24,19 @@ export default function RootLayout({
     <ClerkProvider
       appearance={{
         baseTheme: shadesOfPurple,
-      }}
-    >
+      }}>
       <html suppressHydrationWarning lang="en" className="dark">
-        <body suppressHydrationWarning className={cn(jakarta.className, 'dark')}>
+        <body
+          suppressHydrationWarning
+          className={cn(jakarta.className, 'dark')}>
           <ReactQueryProvider>
-            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem={false}
+              disableTransitionOnChange>
               {children}
-              <Toaster />
+              <Toaster theme="dark" />
             </ThemeProvider>
           </ReactQueryProvider>
         </body>

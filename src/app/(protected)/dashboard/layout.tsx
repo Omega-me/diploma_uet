@@ -3,8 +3,15 @@ import Navbar from '@/components/global/navbar';
 import Sidebar from '@/components/global/sidebar';
 import React, { PropsWithChildren } from 'react';
 import { redirect } from 'next/navigation';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { PrefetchAutomations, PrefetchUserProfile } from '@/react-query/prefetch';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
+import {
+  PrefetchAutomations,
+  PrefetchUserProfile,
+} from '@/react-query/prefetch';
 
 interface Props extends PropsWithChildren {}
 

@@ -41,3 +41,6 @@ next-env.d.ts
 bun.lockb
 # clerk configuration (can include secrets)
 /.clerk/
+
+
+.vscode
