@@ -1,24 +1,13 @@
 'use client';
-import {
-  MutateFunction,
-  MutationKey,
-  QueryKey,
-  useMutation,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { MutateFunction, MutationKey, QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-export const useMutationData = (
-  mutationKey: MutationKey,
-  mutationFn: MutateFunction<any, any>,
-  queryKey: QueryKey,
-  onSuccess: () => void,
-) => {
+export const useMutationData = (mutationKey: MutationKey, mutationFn: MutateFunction<any, any>, queryKey: QueryKey, onSuccess?: () => void) => {
   const client = useQueryClient();
   const { mutate, isPending, variables } = useMutation({
     mutationKey,
     mutationFn,
-    onSuccess: data => {
+    onSuccess: (data) => {
       if (onSuccess) onSuccess();
       return toast(data?.status === 200 || 201 ? 'Success' : 'Error', {
         description: data?.data,

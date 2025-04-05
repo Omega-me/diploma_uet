@@ -7,6 +7,7 @@ import { shadesOfPurple } from '@clerk/themes';
 import { Toaster } from 'sonner';
 import ReactQueryProvider from '@/providers/react-query-provider';
 import './globals.css';
+import ReduxProvider from '@/providers/redux-provider';
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'] });
 
@@ -24,21 +25,18 @@ export default function RootLayout({
     <ClerkProvider
       appearance={{
         baseTheme: shadesOfPurple,
-      }}>
+      }}
+    >
       <html suppressHydrationWarning lang="en" className="dark">
-        <body
-          suppressHydrationWarning
-          className={cn(jakarta.className, 'dark')}>
-          <ReactQueryProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem={false}
-              disableTransitionOnChange>
-              {children}
-              <Toaster theme="dark" />
-            </ThemeProvider>
-          </ReactQueryProvider>
+        <body suppressHydrationWarning className={cn(jakarta.className, 'dark')}>
+          <ReduxProvider>
+            <ReactQueryProvider>
+              <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+                {children}
+                <Toaster theme="dark" />
+              </ThemeProvider>
+            </ReactQueryProvider>
+          </ReduxProvider>
         </body>
       </html>
     </ClerkProvider>

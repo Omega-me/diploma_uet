@@ -1,6 +1,7 @@
 'use server';
 
 import { client } from '@/lib/prisma.lib';
+import { ListenerType } from '@prisma/client';
 
 export const getAllAutomations = async (clerkId: string) => {
   return await client.user.findUnique({
@@ -59,7 +60,7 @@ export const onUpdateAutomation = async (
   data: {
     name?: string;
     active?: boolean;
-  },
+  }
 ) => {
   return await client.automations.update({
     where: {
@@ -68,6 +69,84 @@ export const onUpdateAutomation = async (
     data: {
       name: data.name,
       active: data.active,
+    },
+  });
+};
+
+export const addListener = async (automationId: string, listener: 'SMARTAI' | 'MESSAGE', prompt: string, reply?: string) => {
+  return await client.automations.update({
+    where: {
+      id: automationId,
+    },
+    data: {
+      listener: {
+        create: {
+          listener,
+          prompt,
+          commentReply: reply,
+          commentCount: 0,
+          dmCount: 0,
+        },
+      },
+    },
+  });
+};
+
+export const addTrigger = async (automationId: string, trigger: string[]) => {
+  if (trigger.length === 2) {
+    return await client.automations.update({
+      where: {
+        id: automationId,
+      },
+      data: {
+        triggers: {
+          createMany: {
+            data: [
+              {
+                type: trigger[0],
+              },
+              {
+                type: trigger[1],
+              },
+            ],
+          },
+        },
+      },
+    });
+  }
+  return await client.automations.update({
+    where: {
+      id: automationId,
+    },
+    data: {
+      triggers: {
+        create: {
+          type: trigger[0],
+        },
+      },
+    },
+  });
+};
+
+export const addKeyword = async (automationId: string, keyword: string) => {
+  return await client.automations.update({
+    where: {
+      id: automationId,
+    },
+    data: {
+      keywords: {
+        create: {
+          word: keyword,
+        },
+      },
+    },
+  });
+};
+
+export const deleteKeyword = async (id: string) => {
+  return await client.keyword.delete({
+    where: {
+      id,
     },
   });
 };

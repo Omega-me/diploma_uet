@@ -1,12 +1,8 @@
 import { onGetAutomationInfo } from '@/actions/automation';
-import AutomationTrigger from '@/components/global/automation/automation-trigger';
+import AutomationTrigger from '@/components/global/automation/trigger/automation-trigger';
 import AutomationBreadCrumb from '@/components/global/bread-crumbs/automation-bread-crumb';
 import { PrefetchUserAutomation } from '@/react-query/prefetch';
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { CircleAlert } from 'lucide-react';
 import React, { PropsWithChildren } from 'react';
 

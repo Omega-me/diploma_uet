@@ -1,7 +1,6 @@
 'use client';
 
 import { PAGE_BREAD_CRUMBS } from '@/constants/pages';
-import usePaths from '@/hooks/use-navs';
 import React from 'react';
 import AppSheet from '../app-sheet';
 import { Menu } from 'lucide-react';
@@ -10,6 +9,7 @@ import CreateAutomation from '../automation/create-automation';
 import Search from '../search';
 import Notifications from '../notifications';
 import MainBreadCrumb from '../bread-crumbs/main-bread-crumb';
+import { usePaths } from '@/hooks/use-navs';
 
 interface Props {
   userName: string;
@@ -36,12 +36,7 @@ const Navbar = ({ userName }: Props) => {
           </div>
         ) : null}
       </div>
-      {isCurrentPage && (
-        <MainBreadCrumb
-          userName={userName}
-          page={page === 'home' ? 'Home' : page}
-        />
-      )}
+      {isCurrentPage && <MainBreadCrumb userName={userName} page={page === 'home' ? 'Home' : page} />}
     </div>
   );
 };

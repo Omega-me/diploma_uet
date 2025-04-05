@@ -16,8 +16,7 @@ const AutomationBreadCrumb = (props: Props) => {
   const router = useRouter();
   const { data: automationInfo } = useQueryAutomation(props.id);
 
-  const { edit, enableEdit, inputRef, handleUpdate, isPending, variables } =
-    useEditAutomation(props.id);
+  const { edit, enableEdit, inputRef, handleUpdate, isPending, variables } = useEditAutomation(props.id);
 
   return (
     <div className="w-full mt-5 lg:mt-0 p-5 bg-[#18181b1a] rounded-xl border-[1px] flex justify-between items-center">
@@ -28,25 +27,21 @@ const AutomationBreadCrumb = (props: Props) => {
         <ChevronRight color="#9b9ca0" />
         <span className="flex justify-between items-center gap-x-2">
           {edit ? (
-            <Input
-              ref={inputRef}
-              placeholder={isPending ? variables?.name : 'Add new name'}
-              onBlur={handleUpdate}
-            />
+            <Input ref={inputRef} placeholder={isPending ? variables?.name : 'Add new name'} onBlur={handleUpdate} />
           ) : (
             <AppTooltip text="Double click to edit">
-              <p
-                onDoubleClick={enableEdit}
-                className="text-[#9b9ca0] cursor-pointer">
+              <p onDoubleClick={enableEdit} className="text-[#9b9ca0] cursor-pointer">
                 {variables?.name || automationInfo?.data.name}
               </p>
             </AppTooltip>
           )}
-          <span
-            onClick={enableEdit}
-            className="cursor-pointer hover:opacity-75 duration-100 transition">
-            <Pencil color="#9b9ca0" size={15} />
-          </span>
+          {edit ? (
+            <></>
+          ) : (
+            <span onClick={enableEdit} className="cursor-pointer hover:opacity-75 duration-100 transition">
+              <Pencil color="#9b9ca0" size={15} />
+            </span>
+          )}
         </span>
       </div>
       <ActivateAutomationButton />
