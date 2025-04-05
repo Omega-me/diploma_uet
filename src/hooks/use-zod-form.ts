@@ -1,3 +1,4 @@
+'use client';
 import { UseMutateFunction } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,7 +18,9 @@ const useZodForm = (schema: ZodSchema, mutation: UseMutateFunction, defaulValues
     },
   });
 
-  const onFormSubmit = handleSubmit(async (valuse) => mutation({ ...valuse }));
+  const onFormSubmit = handleSubmit(async (values) => {
+    mutation({ ...values });
+  });
 
   return { register, errors, onFormSubmit, watch, reset };
 };

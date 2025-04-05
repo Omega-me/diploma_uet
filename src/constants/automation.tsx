@@ -45,7 +45,7 @@ export const AUTOMATION_TRIGGERS: AutomationTriggerProps[] = [
   },
   {
     id: uuid(),
-    label: 'Send me a dm with a keyword',
+    label: 'User sends me a dm with a keyword',
     description: 'Select if you want to automate DMs in your profile',
     icon: <SendHorizontal />,
     type: 'DM',

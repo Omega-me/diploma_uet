@@ -9,6 +9,8 @@ import { AUTOMATION_TRIGGERS } from '@/constants/automation';
 import useTriggers from '@/hooks/use-triggers';
 import { cn } from '@/lib/utils';
 import Keywords from './keywords';
+import { Button } from '@/components/ui/button';
+import Loader from '../../loader';
 
 interface Props {
   id: string;
@@ -16,7 +18,7 @@ interface Props {
 
 const AutomationTrigger = (props: Props) => {
   const { data: automation } = useQueryAutomation(props.id);
-  const { onSetTrigger, isPending, onSaveTrigger, types } = useTriggers(props.id);
+  const { onSetTrigger, onSaveTrigger, types, isPending } = useTriggers(props.id);
 
   if (automation?.data && automation?.data?.triggers.length > 0) {
     return (
@@ -56,6 +58,13 @@ const AutomationTrigger = (props: Props) => {
           </div>
         ))}
         <Keywords id={props.id} />
+        <Button
+          onClick={onSaveTrigger}
+          disabled={types?.length === 0}
+          className="bg-gradient-to-br from-[#3352cc] font-medium text-white to-[#1c2d70]"
+        >
+          <Loader state={isPending}>Create Trigger</Loader>
+        </Button>
       </div>
     </TriggerButton>
   );

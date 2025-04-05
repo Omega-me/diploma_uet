@@ -42,13 +42,12 @@ const ThenAction = (props: Props) => {
               onClick={() => onSetListener(listener.type)}
               key={listener.id}
               className={cn(
-                Listener === 'SMARTAI' ? 'bg-gradient-to-br from-[#3352cc] to-[#1c2d70] ' : 'bg-muted',
+                Listener === listener.type ? 'bg-gradient-to-br from-[#3352cc] to-[#1c2d70] ' : 'bg-muted',
                 'p-3 rounded-xl flex flex-col gap-y-2 cursor-pointer hover:opacity-80 transition duration-100'
               )}
             >
               <div className="flex gap-x-2 items-center">
                 {listener.icon}
-
                 <p>{listener.label}</p>
               </div>
               <p>{listener.description}</p>
