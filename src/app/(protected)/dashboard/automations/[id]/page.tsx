@@ -1,9 +1,14 @@
 import { onGetAutomationInfo } from '@/actions/automation';
+import PostNode from '@/components/global/automation/post/post-node';
 import ThenNode from '@/components/global/automation/then/then-node';
 import AutomationTrigger from '@/components/global/automation/trigger/automation-trigger';
 import AutomationBreadCrumb from '@/components/global/bread-crumbs/automation-bread-crumb';
 import { PrefetchUserAutomation } from '@/react-query/prefetch';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import { CircleAlert } from 'lucide-react';
 import React, { PropsWithChildren } from 'react';
 
@@ -36,6 +41,7 @@ const Page = async (props: Props) => {
           <AutomationTrigger id={id} />
         </div>
         <ThenNode id={id} />
+        <PostNode id={id} />
       </div>
     </HydrationBoundary>
   );

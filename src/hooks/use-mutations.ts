@@ -1,5 +1,6 @@
 'use client';
 import {
+  onActivateAutomation,
   onCreateAutomation,
   onUpdateAutomationName,
 } from '@/actions/automation';
@@ -54,4 +55,17 @@ export const useEditAutomation = (id: string) => {
     inputRef,
     handleUpdate,
   };
+};
+
+export const useActivateAutomation = (id: string) => {
+  const { mutate, isPending, variables } = useMutationData(
+    ['activate'],
+    async data => {
+      const { state } = data as unknown as { state: boolean };
+      return await onActivateAutomation(id, state);
+    },
+    ['automation-info'],
+  );
+
+  return { mutate, isPending, variables };
 };

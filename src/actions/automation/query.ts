@@ -1,7 +1,7 @@
 'use server';
 
 import { client } from '@/lib/prisma.lib';
-import { ListenerType } from '@prisma/client';
+import { Post } from '@prisma/client';
 
 export const getAllAutomations = async (clerkId: string) => {
   return await client.user.findUnique({
@@ -60,7 +60,7 @@ export const onUpdateAutomation = async (
   data: {
     name?: string;
     active?: boolean;
-  }
+  },
 ) => {
   return await client.automations.update({
     where: {
@@ -73,7 +73,12 @@ export const onUpdateAutomation = async (
   });
 };
 
-export const addListener = async (automationId: string, listener: 'SMARTAI' | 'MESSAGE', prompt: string, reply?: string) => {
+export const addListener = async (
+  automationId: string,
+  listener: 'SMARTAI' | 'MESSAGE',
+  prompt: string,
+  reply?: string,
+) => {
   return await client.automations.update({
     where: {
       id: automationId,
@@ -147,6 +152,21 @@ export const deleteKeyword = async (id: string) => {
   return await client.keyword.delete({
     where: {
       id,
+    },
+  });
+};
+
+export const addPost = async (automationId: string, posts: Post[]) => {
+  return await client.automations.update({
+    where: {
+      id: automationId,
+    },
+    data: {
+      posts: {
+        createMany: {
+          data: posts,
+        },
+      },
     },
   });
 };

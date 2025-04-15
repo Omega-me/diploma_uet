@@ -141,7 +141,7 @@ enum IntegrationType {
 enum MediaType {
   IMAGE
   VIDEO
-  CAROSEL_ALBUM
+  CAROUSEL_ALBUM
 }
 
 enum ListenerType {
