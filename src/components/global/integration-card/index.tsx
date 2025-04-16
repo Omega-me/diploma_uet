@@ -6,6 +6,7 @@ interface Props extends IntegrationCardProps {}
 
 const IntegrationCard = (props: Props) => {
   // TODO: wire up fetching data and get the integrations from the db
+  // const onInstaOAuth = () => onOAuthInstagram(props.strategy);
   return (
     <div className="border-2 border-[#3352cc] rounded-2xl gap-x-5 p-5 flex items-center">
       {props.icon}
@@ -14,10 +15,9 @@ const IntegrationCard = (props: Props) => {
         <p className="text-[#9d9d9d] text-base w-full">{props.descriptions}</p>
       </div>
       <Button
-        //   onClick={onInstaOAuth}
+        // onClick={onInstaOAuth}
         // disabled={integrated?.name === props.strategy}
-        className="bg-gradient-to-br text-white rounded-full text-sm from-[#3352cc] font-medium to-[#1c2d70] hover:opacity-70 transition-all duration-100"
-      >
+        className="bg-gradient-to-br text-white rounded-full text-sm from-[#3352cc] font-medium to-[#1c2d70] hover:opacity-70 transition-all duration-100">
         {/* {integrated ? 'Connected' : 'Connect'} */}
         Connect
       </Button>

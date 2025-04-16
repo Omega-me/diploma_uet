@@ -19,7 +19,12 @@ export const findUser = async (clerkId: string) => {
   });
 };
 
-export const createUser = async (data: { clerkId: string; firstname: string; lastname: string; email: string }) => {
+export const createUser = async (data: {
+  clerkId: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+}) => {
   return await client.user.create({
     data: {
       ...data,
@@ -31,6 +36,26 @@ export const createUser = async (data: { clerkId: string; firstname: string; las
       firstname: true,
       lastname: true,
       clerkId: true,
+    },
+  });
+};
+
+export const updateSubscription = async (
+  clerkId: string,
+  props: { customerId?: string; plan?: 'PRO' | 'FREE' },
+) => {
+  return await client.user.update({
+    where: {
+      clerkId,
+    },
+    data: {
+      subscription: {
+        update: {
+          data: {
+            ...props,
+          },
+        },
+      },
     },
   });
 };

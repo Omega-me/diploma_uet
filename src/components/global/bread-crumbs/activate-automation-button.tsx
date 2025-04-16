@@ -29,7 +29,7 @@ const ActivateAutomationButton = (props: Props) => {
         <Loader state={isPending}>
           {automation?.data?.active ? <Zap /> : <ZapOff />}
           <p className="lg:inline hidden">
-            {automation?.data?.active ? 'Disable' : 'Activate'}
+            {!automation?.data?.active ? 'Disabled' : 'Active'}
           </p>
         </Loader>
       </Button>

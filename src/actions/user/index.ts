@@ -2,9 +2,10 @@
 
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
-import { createUser, findUser } from './queries';
+import { createUser, findUser, updateSubscription } from './queries';
 import { refreshToken } from '@/lib/fetch';
 import { updateIntegration } from '../integrations/query';
+import { stripe } from '@/app/(protected)/api/payment/route';
 
 export const onCurrentUser = async () => {
   const user = await currentUser();
@@ -26,7 +27,11 @@ export const onBoardUser = async () => {
           console.log('Refresh');
           const refresh = await refreshToken(integration.token);
           const expire_date = today.setDate(today.getDate() + 60);
-          const update_token = await updateIntegration(refresh.access_token, new Date(expire_date), integration.id);
+          const update_token = await updateIntegration(
+            refresh.access_token,
+            new Date(expire_date),
+            integration.id,
+          );
           if (!update_token) {
             console.log('Update token failed!');
           }
@@ -68,6 +73,25 @@ export const onUserInfo = async () => {
 
     if (!user) return { status: 404 };
     return { status: 200, data: profile };
+  } catch (error) {
+    return { status: 500 };
+  }
+};
+
+export const onSubscribe = async (session_id: string) => {
+  const user = await onCurrentUser();
+  try {
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+    if (session) {
+      const subscribed = await updateSubscription(user.id, {
+        customerId: session.customer as string,
+        plan: 'PRO',
+      });
+
+      if (subscribed) return { status: 200 };
+      return { status: 401 };
+    }
+    return { status: 404 };
   } catch (error) {
     return { status: 500 };
   }
