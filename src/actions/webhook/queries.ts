@@ -1,5 +1,3 @@
-'use server';
-
 import { client } from '@/lib/prisma.lib';
 
 export const matchKeyword = async (keyword: string) => {
@@ -13,10 +11,7 @@ export const matchKeyword = async (keyword: string) => {
   });
 };
 
-export const getKeywordAutomation = async (
-  automationId: string,
-  dm: boolean,
-) => {
+export const getKeywordAutomation = async (automationId: string, dm: boolean) => {
   return await client.automations.findFirst({
     where: {
       id: automationId,
@@ -47,10 +42,7 @@ export const getKeywordAutomation = async (
   });
 };
 
-export const trackResponses = async (
-  automationId: string,
-  type: 'COMMENT' | 'DM',
-) => {
+export const trackResponses = async (automationId: string, type: 'COMMENT' | 'DM') => {
   if (type === 'COMMENT') {
     return await client.listener.update({
       where: {
@@ -78,12 +70,7 @@ export const trackResponses = async (
   }
 };
 
-export const createChatHistory = (
-  automationId: string,
-  senderId: string,
-  reciever: string,
-  message: string,
-) => {
+export const createChatHistory = (automationId: string, senderId: string, reciever: string, message: string, systemDm: boolean) => {
   return client.automations.update({
     where: {
       id: automationId,
@@ -94,14 +81,44 @@ export const createChatHistory = (
           reciever,
           senderId,
           message,
+          system_dm: systemDm,
         },
       },
     },
   });
 };
 
-export const getKeywordPost = (automationId: string, postId: string) => {
-  return client.post.findFirst({
+export const getChatHistory = async (senderId: string, reciever: string) => {
+  const automation = await client.automations.findFirst({
+    where: {
+      dms: {
+        every: {
+          AND: [{ reciever }, { senderId }],
+        },
+      },
+    },
+    include: {
+      dms: true,
+    },
+  });
+
+  // const dms = await client.dms.findMany({
+  //   where: {
+  //     AND: [{ reciever }, { senderId }],
+  //   },
+  //   include: {
+  //     Automation: true,
+  //   },
+  // });
+
+  return {
+    automationId: automation.id,
+    history: automation.dms,
+  };
+};
+
+export const getKeywordPost = async (automationId: string, postId: string) => {
+  return await client.post.findFirst({
     where: {
       AND: [{ postid: postId }, { automationId }],
     },

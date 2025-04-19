@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { createUser, findUser, updateSubscription } from './queries';
 import { refreshToken } from '@/lib/fetch';
 import { updateIntegration } from '../integrations/query';
-import { stripe } from '@/app/(protected)/api/payment/route';
+import { stripe } from '@/lib/stripe.lib';
 
 export const onCurrentUser = async () => {
   const user = await currentUser();
@@ -27,11 +27,7 @@ export const onBoardUser = async () => {
           console.log('Refresh');
           const refresh = await refreshToken(integration.token);
           const expire_date = today.setDate(today.getDate() + 60);
-          const update_token = await updateIntegration(
-            refresh.access_token,
-            new Date(expire_date),
-            integration.id,
-          );
+          const update_token = await updateIntegration(refresh.access_token, new Date(expire_date), integration.id);
           if (!update_token) {
             console.log('Update token failed!');
           }
